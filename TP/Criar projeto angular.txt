@@ -1,7 +1,0 @@
--instalar node.js
--intalar angular - npm intall -g @angular/cli 
--Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
--Criar projeto - ng new TP-Angular
--Entrar na pasta do projeto
-- ng serve - executar
-- http://localhost:4200
