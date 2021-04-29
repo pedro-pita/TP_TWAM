@@ -45,7 +45,7 @@ class Favorites extends Component {
         } else {
             return (
                 <div>
-                    <h1>FILMES</h1>
+                    <h1>FAVORITOS</h1>
                     {
                         items.map(item => (
                             <div>
@@ -57,31 +57,8 @@ class Favorites extends Component {
                                     onDelete = {this.handleDelete }>
                                 </Item_Movie>
                             </div>
-                            /*<div>
-                                <img src={ "https://image.tmdb.org/t/p/original/" + item.poster_path } alt="" width="200"/>
-                                <h1>{item.title}</h1>
-                                <p>{item.release_date}</p>
-                                <p>{item.vote_average}</p>
-                                <p>{item.overview}</p>
-                            </div>*/
                         ))
                     }
-                    {/*<ul>
-                        {items.map(item => (
-                            <h1>sadasd</h1>
-                        ))}
-                    </ul>
-                    {
-                        this.state.counters.map(counters => 
-                            <Item_Movie 
-                                key     = { counters.id } 
-                                value   = {counters.value} 
-                                countId = {counters.id}
-                                onDelete= {this.handleDelete}>
-                                <h3>Title</h3>
-                            </Item_Movie>
-                        )
-                    }*/}
                 </div>
             );
         }

@@ -105,14 +105,22 @@ class Movies extends Component {
             return (
                 <div style={{backgroundColor:'white'}}>
                     {
-                        <div>
-                            <h1>{ item.title}</h1>
-                            <img width="200px" src={ "https://image.tmdb.org/t/p/original/" + item.poster_path } alt="" />
-                            <p>{ item.release_date }</p>
-                            <p>{ item.vote_average } estrelas</p>
-                            <button value={this.state.item.id} className={ this.GetButtonClass()} onClick={ this.swapFavoriteState }>{ this.GetButtonText() }</button>
-                            <h3>Sinopse</h3>
-                            <p>{ item.overview }</p>
+                        <div className="container">
+                            <div className="row" style={{padding:"20px"}}>
+                                <div className="col-md-4">
+                                    <img width="100%" src={ "https://image.tmdb.org/t/p/original/" + item.poster_path } alt="" />
+                                </div>
+                                <div className="col-md-8">
+                                    <h1>{ item.title}</h1>
+                                    <p>{ item.release_date }</p>
+                                    <div className="row align-middle">
+                                            <p> { item.vote_average } estrelas</p>
+                                            <button value={this.state.item.id} className={ this.GetButtonClass()} onClick={ this.swapFavoriteState }>{ this.GetButtonText() }</button>
+                                    </div>
+                                    <h3>Sinopse</h3>
+                                    <p>{ item.overview }</p>
+                                </div>
+                            </div>
                         </div>
                     }
                 </div>
