@@ -56,7 +56,7 @@ class Movies extends Component {
     }
 
     GetButtonText = () => {
-        return this.state.favorite === true ? 'Remover Favorito' : 'Adicionar Favorito';
+        return this.state.favorite === true ? 'Remove Favorite' : 'Add Favorite';
     }
 
     swapFavoriteState = () => {

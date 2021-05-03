@@ -38,15 +38,14 @@ class Home extends Component {
     }
 
     getBackgroundImageStyle = () => ({
-        /*width: "100%",
-        minHeight: "500px",
-        backgroundImage: `url(` + this.state.background + `)`,
-        backgroundSize: "100% 100%"*/
         backgroundSize: "cover",
-        backgroundImage: `url(` + this.state.background + `)`,
         height: "550px",
         width: "100%",
-        display: "inline-block"
+        display: "inline-block",
+        backgroundImage: `url(` + this.state.background + `)`,
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        position: "relative"
     });
 
     render() {
@@ -59,18 +58,18 @@ class Home extends Component {
             return (
                 <div className="container mt-4">
                     <a href={ "/detailed/" + this.state.items[0].id}>
-                        <div className="row" style={ this.getBackgroundImageStyle() }>
+                        <div className="row ml-1" style={ this.getBackgroundImageStyle() }>
                             <div class="title-home">
-                                <h1><span className="badge badge-warning" style={{color:"black",textAlign: "center" }}>{this.state.items[0].title}</span></h1>
+                                <h1><span className="badge badge-warning">{this.state.items[0].title}</span></h1>
                             </div>
                         </div>
                     </a>
                     <div className="mt-3">
-                        <h3 style={{marginLeft: "-15px"}}>RECOMENDADOS</h3>
+                        <h3>RECOMENDADOS</h3>
                         <div class="row mt-3">
                             {
                                 items.slice(1,5).map(item => (
-                                    <div class="col-sm-6 col-md-3">
+                                    <div class="col-sm-6 col-md-6 col-lg-3">
                                         <Item_Movie 
                                             key      = { item.id } 
                                             id      = { item.id } 
