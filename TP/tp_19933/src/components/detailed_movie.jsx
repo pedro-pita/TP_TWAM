@@ -20,6 +20,7 @@ class Movies extends Component {
                 this.setState({
                     item: result
                 });
+                console.log(result);
                 this.loadFavorites()
             },
             (error) => {
@@ -82,6 +83,26 @@ class Movies extends Component {
         });
     }
 
+    getStars = () => {
+        var divStars = [];
+        var stars = Math.round(this.state.item.vote_average/2)
+        for (var i = 0; i < 5; i++) {
+            if(i < stars)
+                divStars.push(<i class="rating-check fas fa-star fa-lg" name="example" value={i} ></i>);
+            else
+                divStars.push(<i class="rating-non-check far fa-star fa-lg" name="example" value={i} ></i>);
+        }
+        return divStars
+    } 
+
+    getGenres = () => {
+        var genres ="";
+        this.state.item.genres.forEach(genre => {
+            genres += " " + genre["name"] + ",";
+        });
+        return genres.slice(0, -1);
+    } 
+
     render() {
         const { error, isLoaded, item, favorite } = this.state;
         if (error) {
@@ -99,12 +120,21 @@ class Movies extends Component {
                             <div className="col-md-8">
                                 <h1>{ item.title}</h1>
                                 <p>{ item.release_date }</p>
-                                <div className="row align-middle">
-                                    <p> { item.vote_average } estrelas</p>
-                                    <button value={this.state.item.id} className={ this.GetButtonClass()} onClick={ this.swapFavoriteState }>{ this.GetButtonText() }</button>
+                                <div class="genres">
+                                    <p>{this.getGenres()}</p>
                                 </div>
-                                <h3>Sinopse</h3>
-                                <p>{ item.overview }</p>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p>{this.getStars()}</p>
+                                        <button value={this.state.item.id} className={ this.GetButtonClass()} onClick={ this.swapFavoriteState }>{ this.GetButtonText() }</button>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-12">
+                                        <h3>Sinopse</h3>
+                                        <p>{ item.overview }</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     }
