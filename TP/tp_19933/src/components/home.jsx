@@ -38,10 +38,15 @@ class Home extends Component {
     }
 
     getBackgroundImageStyle = () => ({
-        width: "100%",
-        height: "400px",
+        /*width: "100%",
+        minHeight: "500px",
         backgroundImage: `url(` + this.state.background + `)`,
-        backgroundSize: "100% 100%"
+        backgroundSize: "100% 100%"*/
+        backgroundSize: "cover",
+        backgroundImage: `url(` + this.state.background + `)`,
+        height: "550px",
+        width: "100%",
+        display: "inline-block"
     });
 
     render() {
@@ -52,29 +57,30 @@ class Home extends Component {
             return <div><h1>Loading...</h1></div>;
         } else {
             return (
-                <div>
-                    <div className="container">
+                <div className="container mt-4">
+                    <a href={ "/detailed/" + this.state.items[0].id}>
                         <div className="row" style={ this.getBackgroundImageStyle() }>
-                            <h1 style={{color:"white",verticalAlign: "bottom"} }>{this.state.items[0].title}</h1>
-                        </div>
-                        
-                        <div class="row">
-                            <h1>RECOMENDADOS</h1>
-                            <div class="col-md-12">
-                                {
-                                    items.slice(1,5).map(item => (
-                                        <div>
-                                            <Item_Movie 
-                                                key      = { item.id } 
-                                                id      = { item.id } 
-                                                title    = { item.title} 
-                                                imageURL = {"https://image.tmdb.org/t/p/original/" + item.poster_path }
-                                                onDelete = {this.handleDelete }>
-                                            </Item_Movie>
-                                        </div>
-                                    ))
-                                }
+                            <div class="title-home">
+                                <h1><span className="badge badge-warning" style={{color:"black",textAlign: "center" }}>{this.state.items[0].title}</span></h1>
                             </div>
+                        </div>
+                    </a>
+                    <div className="mt-3">
+                        <h3 style={{marginLeft: "-15px"}}>RECOMENDADOS</h3>
+                        <div class="row mt-3">
+                            {
+                                items.slice(1,5).map(item => (
+                                    <div class="col-sm-6 col-md-3">
+                                        <Item_Movie 
+                                            key      = { item.id } 
+                                            id      = { item.id } 
+                                            title    = { item.title} 
+                                            imageURL = {"https://image.tmdb.org/t/p/original/" + item.poster_path }
+                                            onDelete = {this.handleDelete }>
+                                        </Item_Movie>
+                                    </div>
+                                ))
+                            }
                         </div>
                     </div>
                 </div>

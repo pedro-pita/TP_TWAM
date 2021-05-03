@@ -52,15 +52,10 @@ class Movies extends Component {
     }
 
     GetButtonClass = () => {
-        console.log(this.state.favorite)
-        let classes = "btn btn-"
-        classes += this.state.favorite === true ? 'danger' : 'success';
-        classes += " btn-sm m-2";
-        return classes;
+        return this.state.favorite === true ? 'btn btn-danger' : 'btn btn-success' + " btn-sm m-2";
     }
 
     GetButtonText = () => {
-        console.log(this.state.favorite)
         return this.state.favorite === true ? 'Remover Favorito' : 'Adicionar Favorito';
     }
 
@@ -86,14 +81,6 @@ class Movies extends Component {
             });
         });
     }
-    
-    swapStyleButton = () => {
-        if(this.state.favorite){
-            
-        }else{
-
-        }
-    }
 
     render() {
         const { error, isLoaded, item, favorite } = this.state;
@@ -103,23 +90,21 @@ class Movies extends Component {
             return <div><h1>Loading...</h1></div>;
         } else {
             return (
-                <div style={{backgroundColor:'white'}}>
+                <div className="container">
                     {
-                        <div className="container">
-                            <div className="row" style={{padding:"20px"}}>
-                                <div className="col-md-4">
-                                    <img width="100%" src={ "https://image.tmdb.org/t/p/original/" + item.poster_path } alt="" />
+                        <div className="row" style={{padding:"20px"}}>
+                            <div className="col-md-4">
+                                <img width="100%" src={ "https://image.tmdb.org/t/p/original/" + item.poster_path } alt="" />
+                            </div>
+                            <div className="col-md-8">
+                                <h1>{ item.title}</h1>
+                                <p>{ item.release_date }</p>
+                                <div className="row align-middle">
+                                    <p> { item.vote_average } estrelas</p>
+                                    <button value={this.state.item.id} className={ this.GetButtonClass()} onClick={ this.swapFavoriteState }>{ this.GetButtonText() }</button>
                                 </div>
-                                <div className="col-md-8">
-                                    <h1>{ item.title}</h1>
-                                    <p>{ item.release_date }</p>
-                                    <div className="row align-middle">
-                                            <p> { item.vote_average } estrelas</p>
-                                            <button value={this.state.item.id} className={ this.GetButtonClass()} onClick={ this.swapFavoriteState }>{ this.GetButtonText() }</button>
-                                    </div>
-                                    <h3>Sinopse</h3>
-                                    <p>{ item.overview }</p>
-                                </div>
+                                <h3>Sinopse</h3>
+                                <p>{ item.overview }</p>
                             </div>
                         </div>
                     }
@@ -128,23 +113,4 @@ class Movies extends Component {
         }
     }
 }
-
-/*function swapFavoriteState(id) {
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ media_id: id })
-    };
-    fetch('https://api.themoviedb.org/3/list/7080650/add_item?api_key=85b7f5dbd764003e3e05f18df89ff387&session_id=10cc9fc7513f93faba96a3042d349cc6e2b5d498', requestOptions)
-    .then(async response => {
-        const isJson = response.headers.get('content-type')?.includes('application/json');
-        const data = isJson && await response.json();
-
-        // check for error response
-    })
-    .catch(error => {
-        this.setState({ errorMessage: error.toString() });
-        console.error('There was an error!', error);
-    });
-}*/
 export default Movies;
