@@ -33,16 +33,16 @@ class Nav extends Component {
                     <div className="col-sm-11 col-md-11 col-lg-4">
                         <div className="collapse navbar-collapse" id="navbarSupportedContent" >
                             <ul className="navbar-nav mr-auto">
-                                    <li className="nav-item col-sm-12 col-md-12 col-lg-6">
-                                        <form method="get" action="/movies">
-                                        <input type="submit" className="btn btn-light btn-home col-sm-12 col-md-12 col-lg-12" style={this.buttonHome()} value="Movies" />
-                                        </form>
-                                    </li>
-                                    <li className="nav-item col-sm-12 col-md-12 col-lg-7">
-                                        <form method="get" action="/favorites">
-                                            <input type="submit" className="btn btn-light btn-home col-sm-12 col-md-12 col-lg-12" style={this.buttonHome()} value="Favorites" />
-                                        </form>
-                                    </li>
+                                <li className="nav-item col-sm-12 col-md-12 col-lg-6">
+                                    <form method="get" action="/movies/list">
+                                    <input type="submit" className="btn btn-light btn-home col-sm-12 col-md-12 col-lg-12" style={this.buttonHome()} value="Movies" />
+                                    </form>
+                                </li>
+                                <li className="nav-item col-sm-12 col-md-12 col-lg-7">
+                                    <form method="get" action="/movies/favorites">
+                                        <input type="submit" className="btn btn-light btn-home col-sm-12 col-md-12 col-lg-12" style={this.buttonHome()} value="Favorites" />
+                                    </form>
+                                </li>
                             </ul>
                         </div>
                     </div> 

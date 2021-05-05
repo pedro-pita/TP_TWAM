@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link, Redirect } from 'react-router-dom'
 import Nav from './components/navbar';
-import Movies from './components/list_movies';
-import Home from './components/home';
+import Movies from './pages/list_movies';
+import Home from './pages/home';
 import Favorites from './components/fav_movies';
 import Footer from './components/footer';
-import Detailed from './components/detailed_movie';
+import Detailed from './pages/detailed_movie';
 
 class App extends Component {
     constructor(props) {
@@ -33,8 +33,7 @@ class App extends Component {
                 <Router>
                     <Switch>
                         <Route exact path="/" component={ Home } />
-                        <Route exact path="/movies" component={ Movies } />
-                        <Route exact path="/favorites" component={ Favorites } />
+                        <Route exact path="/movies/:value" component={ Movies } />
                         <Route exact path="/detailed/:value" component={ Detailed } />
                         <Route path="*" render= {() => <h1>404</h1>} />
                     </Switch>
