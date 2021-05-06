@@ -53,12 +53,11 @@ class Movies extends Component {
     getPagination = () => {
         var ulPagination = [];
         var page = this.state.page;
+        var maxPages = 240;
 
         if(this.state.typeList != "list"){
             var maxPages = this.state.allItemns.length / 20;
             maxPages = Math.floor(maxPages) + Math.ceil(maxPages % 1);
-        }else{
-            var maxPages = 240;
         }
 
         if(page > 1 ){
@@ -103,36 +102,38 @@ class Movies extends Component {
             return <div><h1>Loading...</h1></div>;
         } else {
             return (
-                <div className="row mt-2">
-                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 box-items ml-5">
-                        <h2>Filters</h2>
-                        <div className="row justify-content-center">
-                            <p>asdasd</p>
+                <div className="container">
+                    <div className="row mt-5">
+                        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 box-items">
+                            <h2>Filters</h2>
+                            <div className="row justify-content-center">
+                                <p>asdasd</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 box-items ml-2">
-                        <h2>{ typeList=="list" ? "Movies" : "Favorites" }</h2>
-                        <div className="row">
-                            {items.map(item => (
-                                <div class="itens col-xs-12 col-sm-6 col-md-4 col-lg-3 mt-4">
-                                    <Item_Movie 
-                                        key      = { item.id } 
-                                        id      =  { item.id } 
-                                        title    = { item.title} 
-                                        imageURL = {"https://image.tmdb.org/t/p/original/" + item.poster_path }
-                                        onDelete = {this.handleDelete }>
-                                    </Item_Movie>
-                                </div>
-                            ))}
-                        </div>
-                        <div className="row justify-content-center">
-                            <div className="row mt-4">
-                                <div className="col-lg-12">
-                                    <nav aria-label="...">
-                                        <ul class="pagination">
-                                            { this.getPagination() }
-                                        </ul>
-                                    </nav>
+                        <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-9 box-items">
+                            <h2>{ typeList=="list" ? "Movies" : "Favorites" }</h2>
+                            <div className="row">
+                                {items.map(item => (
+                                    <div class="itens col-xs-11 col-sm-6 col-md-6 col-lg-4 col-xl-3 mt-4">
+                                        <Item_Movie 
+                                            key      = { item.id } 
+                                            id      =  { item.id } 
+                                            title    = { item.title} 
+                                            imageURL = {"https://image.tmdb.org/t/p/original/" + item.poster_path }
+                                            onDelete = {this.handleDelete }>
+                                        </Item_Movie>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="row justify-content-center">
+                                <div className="row mt-4">
+                                    <div className="col-lg-12">
+                                        <nav aria-label="...">
+                                            <ul class="pagination">
+                                                { this.getPagination() }
+                                            </ul>
+                                        </nav>
+                                    </div>
                                 </div>
                             </div>
                         </div>
