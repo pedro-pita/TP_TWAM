@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Item_Movie from '../components/item_movie';
 
+const itemsPerPage = 20; 
+
 class Movies extends Component {
     constructor(props) {
         super(props);
@@ -8,30 +10,34 @@ class Movies extends Component {
             error: null,
             typeList: this.props.match.params.value,
             page: 1,
+            totalPages: 0,
             isLoaded: false,
             items: [],
-            allItemns:[]
+            allItemns:[],
+            currentItems: [0, itemsPerPage]
         };
     }
 
     componentDidMount(page=this.state.page) {
-        if(this.state.typeList != "list" && this.state.isLoaded){
-            var min = (page-1) * 20;
-            var max = min + 20;
+        if(this.state.typeList === "favorites" && this.state.isLoaded){
+            var start = (page-1) * itemsPerPage;
+            var end = start + itemsPerPage;
             this.setState({
-                isLoaded: true,
-                items: this.state.allItemns.slice(min, max)
+                currentItems: [start,end],
+                isLoaded: true
             });
         }else{
-            fetch( this.state.typeList=="list" ? "https://api.themoviedb.org/3/movie/popular?api_key=85b7f5dbd764003e3e05f18df89ff387&language=en-US&page=" + page : "https://api.themoviedb.org/3/list/7080650?api_key=85b7f5dbd764003e3e05f18df89ff387")
+            fetch(this.getLinkToRequest(page))
             .then(res => res.json())
             .then(
                 (result) => {
                     this.setState({
                         isLoaded: true,
-                        items: this.state.typeList=="list" ? result.results : result.items.slice(0, 20),
-                        allItemns: this.state.typeList=="list" ? result.results : result.items
+                        items: this.state.typeList !== "favorites" ? result.results : result.items
                     });
+                    this.setState({
+                        totalPages: this.state.typeList !== "favorites" ? result.total_pages : this.calculateTotalPageNumber((this.state.items.length / 20))
+                    })
                 },
                 (error) => {
                     this.setState({
@@ -43,6 +49,19 @@ class Movies extends Component {
         }
     }
 
+    getLinkToRequest = ( page = this.state.page, query = "Batman") => {
+        switch(this.state.typeList){
+            case "list":
+                return "https://api.themoviedb.org/3/movie/popular?api_key=85b7f5dbd764003e3e05f18df89ff387&language=en-US&page=" + page;
+            case "favorites":
+                return "https://api.themoviedb.org/3/list/7080650?api_key=85b7f5dbd764003e3e05f18df89ff387";
+            default:
+                return "https://api.themoviedb.org/3/search/movie?api_key=85b7f5dbd764003e3e05f18df89ff387&page=" + page + "&query=" + this.state.typeList;
+        }
+    } 
+    
+    calculateTotalPageNumber = (pages) => (Math.floor(pages) + Math.ceil(pages % 1));
+
     changePage = (page) => {
         this.setState({
             page:page
@@ -53,12 +72,7 @@ class Movies extends Component {
     getPagination = () => {
         var ulPagination = [];
         var page = this.state.page;
-        var maxPages = 240;
-
-        if(this.state.typeList != "list"){
-            var maxPages = this.state.allItemns.length / 20;
-            maxPages = Math.floor(maxPages) + Math.ceil(maxPages % 1);
-        }
+        var maxPages = this.state.totalPages;
 
         if(page > 1 ){
             ulPagination.push(
@@ -111,9 +125,11 @@ class Movies extends Component {
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-9 box-items">
-                            <h2>{ typeList=="list" ? "Movies" : "Favorites" }</h2>
+                            <h2>{ typeList === "list" ? "Movies" : "Favorites" }</h2>
                             <div className="row">
-                                {items.map(item => (
+
+                                {
+                                items.slice(this.state.currentItems[0], this.state.currentItems[1]).map(item => (
                                     <div class="itens col-xs-11 col-sm-6 col-md-6 col-lg-4 col-xl-3 mt-4">
                                         <Item_Movie 
                                             key      = { item.id } 

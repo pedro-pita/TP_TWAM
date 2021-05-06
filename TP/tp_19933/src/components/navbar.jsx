@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import Search from './search_form'
 
 
 
@@ -11,6 +11,10 @@ class Nav extends Component {
         color:"white",
         textAlign:"center"
     });
+
+    searchMovie = () => {
+        
+    };
     
     render() {
         return (
@@ -20,11 +24,7 @@ class Nav extends Component {
                     <div className="col-sm-11 col-md-11 col-lg-8">
                         <div class="input-group rounded">
                             <a className="navbar-brand nav-link nav-items text-white" href="/" >HOME</a>
-                            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-                                aria-describedby="search-addon" />
-                            <span class="input-group-text border-0" id="search-addon">
-                                <i class="fas fa-search"></i>
-                            </span>
+                            <Search/>
                             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                                 <span className="navbar-toggler-icon"></span>
                             </button>
@@ -35,7 +35,7 @@ class Nav extends Component {
                             <ul className="navbar-nav mr-auto">
                                 <li className="nav-item col-sm-12 col-md-12 col-lg-6">
                                     <form method="get" action="/movies/list">
-                                    <input type="submit" className="btn btn-light btn-home col-sm-12 col-md-12 col-lg-12" style={this.buttonHome()} value="Movies" />
+                                        <input type="submit" className="btn btn-light btn-home col-sm-12 col-md-12 col-lg-12" style={this.buttonHome()} value="Movies" />
                                     </form>
                                 </li>
                                 <li className="nav-item col-sm-12 col-md-12 col-lg-7">
