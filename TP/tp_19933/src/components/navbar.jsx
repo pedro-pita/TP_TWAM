@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Search from './search_form'
-
+import Redirect from 'react'
 
 
 class Nav extends Component {
@@ -19,18 +19,26 @@ class Nav extends Component {
     render() {
         return (
             <>
-                <nav className="row navbar navbar-expand-lg navbar-light secondary-background-color nav justify-content-cente">
-                    <div className="col-sm-0 col-lg-1"/>
-                    <div className="col-sm-11 col-md-11 col-lg-8">
-                        <div class="input-group rounded">
-                            <a className="navbar-brand nav-link nav-items text-white" href="/" >HOME</a>
-                            <Search/>
-                            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                                <span className="navbar-toggler-icon"></span>
-                            </button>
+                <nav className="row navbar navbar-expand-lg navbar-light secondary-background-color nav justify-content-center">
+                    <div className=""/>
+                    <div className="col-11 col-sm-11 col-md-11 col-lg-8 col-xl-9">
+                        <div className="row">
+                            <div class="input-group rounded">
+                                <div className="col-3 col-sm-2 col-md-2 col-lg-2 col-xl-3" align="rigth">
+                                    <div className="row">
+                                        <div className="col-xl-6"/>
+                                        <div className="col-12 col-xl-6">
+                                            <a className="navbar-brand nav-link nav-items text-white" href="/" >HOME</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-9 col-sm-10 col-md-10 col-lg-10 col-xl-9">   
+                                    <Search/>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div className="col-sm-11 col-md-11 col-lg-4">
+                    <div className="col-11 col-sm-11 col-md-11 col-lg-3 col-xl-2" >
                         <div className="collapse navbar-collapse" id="navbarSupportedContent" >
                             <ul className="navbar-nav mr-auto">
                                 <li className="nav-item col-sm-12 col-md-12 col-lg-6">
