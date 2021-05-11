@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Item_Movie from '../components/item_movie';
+import Loading from '../components/loading';
 
 class Home extends Component {
     constructor(props) {
@@ -53,7 +54,9 @@ class Home extends Component {
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
-            return <div><h1>Loading...</h1></div>;
+            return (
+                    <Loading/>
+                );
         } else {
             return (
                 <div className="container mt-4">

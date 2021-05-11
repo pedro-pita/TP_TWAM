@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import Loading from '../components/loading';
 
 class Movies extends Component {
     constructor(props) {
@@ -108,7 +108,7 @@ class Movies extends Component {
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
-            return <div><h1>Loading...</h1></div>;
+            return <Loading/>
         } else {
             return (
                 <div className="container">
@@ -131,7 +131,7 @@ class Movies extends Component {
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col-md-12">
-                                        <h3>Sinopse</h3>
+                                        <h3>Overview</h3>
                                         <p>{ item.overview }</p>
                                     </div>
                                 </div>

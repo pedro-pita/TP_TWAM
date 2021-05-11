@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import Item_Movie from '../components/item_movie';
+import Sort from '../components/sort_filter_form';
+import Filters from '../components/filters_form';
+import Loading from '../components/loading';
 
 const itemsPerPage = 20; 
 
@@ -16,6 +19,8 @@ class Movies extends Component {
             allItemns:[],
             currentItems: [0, itemsPerPage]
         };
+
+        
     }
 
     componentDidMount(page=this.state.page) {
@@ -49,7 +54,7 @@ class Movies extends Component {
         }
     }
 
-    getLinkToRequest = ( page = this.state.page, query = "Batman") => {
+    getLinkToRequest = ( page = this.state.page) => {
         switch(this.state.typeList){
             case "list":
                 return "https://api.themoviedb.org/3/movie/popular?api_key=85b7f5dbd764003e3e05f18df89ff387&language=en-US&page=" + page;
@@ -67,6 +72,17 @@ class Movies extends Component {
             page:page
         })
         this.componentDidMount(page);
+    }
+    
+    getTitle = () => {
+        switch(this.state.typeList){
+            case "list":
+                return "Movies";
+            case "favorites":
+                return "Favorites";
+            default:
+                return 'Search "' + this.state.typeList + '"';
+        }
     }
 
     getPagination = () => {
@@ -113,21 +129,19 @@ class Movies extends Component {
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
-            return <div><h1>Loading...</h1></div>;
+            return <Loading/>
         } else {
             return (
                 <div className="container">
                     <div className="row mt-5">
                         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 box-items">
-                            <h2>Filters</h2>
-                            <div className="row justify-content-center">
-                                <p>asdasd</p>
-                            </div>
+                            <h1>Filters</h1>
+                            <Sort></Sort>
+                            <Filters></Filters>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-9 box-items">
-                            <h2>{ typeList === "list" ? "Movies" : "Favorites" }</h2>
+                            <h2>{ this.getTitle() }</h2>
                             <div className="row">
-
                                 {
                                 items.slice(this.state.currentItems[0], this.state.currentItems[1]).map(item => (
                                     <div class="itens col-xs-11 col-sm-6 col-md-6 col-lg-4 col-xl-3 mt-4">
@@ -141,15 +155,11 @@ class Movies extends Component {
                                     </div>
                                 ))}
                             </div>
-                            <div className="row justify-content-center">
-                                <div className="row mt-4">
-                                    <div className="col-lg-12">
-                                        <nav aria-label="...">
-                                            <ul class="pagination">
-                                                { this.getPagination() }
-                                            </ul>
-                                        </nav>
-                                    </div>
+                            <div className="row" align="center">
+                                <div className="col align-self-center">
+                                        <ul class="pagination">
+                                            { this.getPagination() }
+                                        </ul>
                                 </div>
                             </div>
                         </div>
