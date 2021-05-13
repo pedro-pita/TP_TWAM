@@ -1,7 +1,4 @@
-import React,  { useState, Component, ToggleButtonGroup, ToggleButton } from 'react';
-/*import DayPickerInput from 'react-day-picker/DayPickerInput';
-import 'react-day-picker/lib/style.css';*/
-import DatePicker from './date_picker'
+import React, { Component } from 'react';
 
 class Filters extends Component {
     constructor(props) {

@@ -28,12 +28,13 @@ export default class DatePicker extends React.Component {
   }
 
   handleFromChange(from) {
-    // Change the from date and focus the "to" input field
     this.setState({ from });
+    this.props.onChangeDatePicker([from,this.state.to]);
   }
 
   handleToChange(to) {
     this.setState({ to }, this.showFromMonth);
+    this.props.onChangeDatePicker([this.state.from,to]);
   }
   
   render() {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Item_Movie from '../components/item_movie';
-import Sort from '../components/sort_filter_form';
+import Sort from '../components/sort_filter';
 import Filters from '../components/filters_form';
 import Loading from '../components/loading';
 
@@ -19,8 +19,6 @@ class Movies extends Component {
             allItemns:[],
             currentItems: [0, itemsPerPage]
         };
-
-        
     }
 
     componentDidMount(page=this.state.page) {
@@ -136,8 +134,7 @@ class Movies extends Component {
                     <div className="row mt-5">
                         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 box-items">
                             <h1>Filters</h1>
-                            <Sort></Sort>
-                            <Filters></Filters>
+                            <Filters/>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-9 box-items">
                             <h2>{ this.getTitle() }</h2>

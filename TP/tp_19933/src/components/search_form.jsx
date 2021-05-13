@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Redirect from 'react'
 
 class Search extends Component {
     constructor(props) {
@@ -25,7 +24,7 @@ class Search extends Component {
         return (
             <>
                 <form onSubmit={this.handleSubmit} className="row">
-                    <div class="col-7 col-sm-8 col-md-9 col-lg-11 col-xl-11" >
+                    <div class="col-7 col-sm-8 col-md-9 col-lg-10 col-xl-11" >
                         <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" value={this.state.value} onChange={this.handleChange}/>
                     </div>
                     <div class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1" align="left">

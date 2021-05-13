@@ -19,9 +19,6 @@ class Filters extends Component {
             <>
                 <form onchange={this.handleSubmit} className="row justify-content-center">
                     <div className="row">
-                        <p className="col-12">Sort Results By:</p>
-                    </div>
-                    <div className="row">
                         <select class="custom-select col-12">
                             <option selected value="1">Rating (Descending)</option>
                             <option value="2">Rating (Ascending)</option>
