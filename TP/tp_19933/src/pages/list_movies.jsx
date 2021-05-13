@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Item_Movie from '../components/item_movie';
-import Sort from '../components/sort_filter';
 import Filters from '../components/filters_form';
 import Loading from '../components/loading';
 
@@ -17,11 +16,14 @@ class Movies extends Component {
             isLoaded: false,
             items: [],
             allItemns:[],
-            currentItems: [0, itemsPerPage]
+            currentItems: [0, itemsPerPage],
+            conditions: ""
         };
+
+        this.handleSubmitFilters = this.handleSubmitFilters.bind(this)
     }
 
-    componentDidMount(page=this.state.page) {
+    componentDidMount(page=this.state.page, conditions="") {
         if(this.state.typeList === "favorites" && this.state.isLoaded){
             var start = (page-1) * itemsPerPage;
             var end = start + itemsPerPage;
@@ -30,7 +32,7 @@ class Movies extends Component {
                 isLoaded: true
             });
         }else{
-            fetch(this.getLinkToRequest(page))
+            fetch(this.getLinkToRequest(page, conditions))
             .then(res => res.json())
             .then(
                 (result) => {
@@ -52,12 +54,15 @@ class Movies extends Component {
         }
     }
 
-    getLinkToRequest = ( page = this.state.page) => {
+    getLinkToRequest = ( page = this.state.page, conditions="") => {
+        console.log("https://api.themoviedb.org/3/discover/movie?api_key=85b7f5dbd764003e3e05f18df89ff387&language=en-US&page=" + page + conditions)
         switch(this.state.typeList){
             case "list":
-                return "https://api.themoviedb.org/3/movie/popular?api_key=85b7f5dbd764003e3e05f18df89ff387&language=en-US&page=" + page;
+                return "https://api.themoviedb.org/3/discover/movie?api_key=85b7f5dbd764003e3e05f18df89ff387&language=en-US&page=" + page + conditions;
             case "favorites":
                 return "https://api.themoviedb.org/3/list/7080650?api_key=85b7f5dbd764003e3e05f18df89ff387";
+            case "filters":
+                return "https://api.themoviedb.org/3/discover/movie?api_key=85b7f5dbd764003e3e05f18df89ff387&language=en-US"
             default:
                 return "https://api.themoviedb.org/3/search/movie?api_key=85b7f5dbd764003e3e05f18df89ff387&page=" + page + "&query=" + this.state.typeList;
         }
@@ -122,6 +127,27 @@ class Movies extends Component {
         return ulPagination
     }
 
+    handleSubmitFilters(sort_by, genres, dates) {
+        /*
+        &sort_by= 
+        &release_date.gte=
+        &release_date.lte=
+        &with_genres=
+        &page=
+        */
+        var conditions = "";
+        if(sort_by != undefined)
+            conditions += "&sort_by=" + sort_by
+        if(dates != undefined)
+            conditions +=  "&release_date.gte=" + dates[0] + "&release_date.lte=" + dates[1]
+        if(genres != undefined)
+            conditions += "&with_genres=" + genres.join()
+        
+        console.log(conditions)
+        this.setState({page:1, conditions:conditions})
+        this.componentDidMount(1, conditions)
+    }
+
     render() {
         const { error, typeList, page, isLoaded, items } = this.state;
         if (error) {
@@ -134,7 +160,7 @@ class Movies extends Component {
                     <div className="row mt-5">
                         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 box-items">
                             <h1>Filters</h1>
-                            <Filters/>
+                            <Filters onSubmitFilters={this.handleSubmitFilters}/>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-9 box-items">
                             <h2>{ this.getTitle() }</h2>

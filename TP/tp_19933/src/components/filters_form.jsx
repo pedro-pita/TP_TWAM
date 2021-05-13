@@ -14,6 +14,8 @@ class Filters extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleGenres = this.handleGenres.bind(this)
         this.handleDatePicker = this.handleDatePicker.bind(this)
+        this.handleSort = this.handleSort.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     handleChange(event) {
@@ -26,12 +28,30 @@ class Filters extends Component {
         textAlign:"center"
     });
 
-    handleSort (genres) {
-        console.log(genres)
-        if(genres.length > 0)
-            this.setState({genres:genres})
-        else
-            this.setState({genres:undefined})
+    handleSort (sortBy) {
+        switch(sortBy){
+            case "1":
+                sortBy = "vote_average.asc"
+                break;
+            case "2":
+                sortBy = "vote_average.desc"
+                break;
+            case "3":
+                sortBy = "release_date.asc"
+                break;
+            case "4":
+                sortBy = "release_date.desc"
+                break;
+            case "5":
+                sortBy = "original_title.asc"
+                break;
+            case "6":
+                sortBy = "original_title.desc"
+                break;
+            default:
+                sortBy = "release_date.desc"
+        }
+        this.setState({sortBy:sortBy})
     }
 
     handleGenres (genres) {
@@ -47,8 +67,12 @@ class Filters extends Component {
             for(var i = 0; i < 2; i++)
                 dates[i] = new Date(dates[i].getTime() - (dates[i].getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
             this.setState({dates:dates});
+            console.log(dates)
         }
-        console.log(dates)
+    }
+
+    handleSubmit () {
+        this.props.onSubmitFilters(this.state.sortBy, this.state.genres, this.state.dates);
     }
 
     render(){
@@ -64,14 +88,12 @@ class Filters extends Component {
                 </div>
                 <div className="row mt-2">
                     <p className="col-12 text-center">Date:</p>
-                    <form method="post">
-                        <div className="col-12" align="center">
-                            <DatePicker onChangeDatePicker={this.handleDatePicker}/>
-                        </div>
-                        <div class="form-group mt-3" align="center">
-                            <button className="btn btn-light secondary-background-color" name="submit" type="submit" style={this.buttonStyle()}>Submit</button>
-                        </div>
-                    </form>
+                    <div className="col-12" align="center">
+                        <DatePicker onChangeDatePicker={this.handleDatePicker}/>
+                    </div>
+                    <div class="form-group mt-3" align="center">
+                        <input onClick={this.handleSubmit} className="btn btn-light secondary-background-color" name="submit" type="submit" value="Submit" style={this.buttonStyle()}/>
+                    </div>
                 </div> 
             </>
         )

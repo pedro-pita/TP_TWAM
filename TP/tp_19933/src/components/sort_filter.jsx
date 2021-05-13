@@ -12,14 +12,15 @@ class Filters extends Component {
 
     handleChange(event) {
         this.setState({value: event.target.value});
+        this.props.onChangeSort(event.target.value);
     }
 
     render(){
         return (
             <>
-                <form onchange={this.handleSubmit} className="row justify-content-center">
+                <form onChange={this.handleChange} className="row justify-content-center">
                     <div className="row">
-                        <select class="custom-select col-12">
+                        <select class="custom-select col-12" onchange={this.handleChange}>
                             <option selected value="1">Rating (Descending)</option>
                             <option value="2">Rating (Ascending)</option>
                             <option value="3">Release Date (Ascending)</option>
