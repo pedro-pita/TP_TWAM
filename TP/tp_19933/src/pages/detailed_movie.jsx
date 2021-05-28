@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import Loading from '../components/loading';
+import ReactNotification from 'react-notifications-component'
+import { store } from "react-notifications-component"
+import 'react-notifications-component/dist/theme.css'
 
 class Movies extends Component {
     constructor(props) {
@@ -74,6 +77,7 @@ class Movies extends Component {
         fetch(link, requestOptions)
         .then(async response => {
             this.setState( {favorite: !this.state.favorite });
+            this.notificationGo(this.state.favorite === true ?  'FILME ADICIONADO COM SUCCESSO!' : 'FILME REMOVIDO COM SUCCESSO!',this.state.favorite === true ? 'O filme ' + this.state.item.title +' foi adicionado à sua lista de favoritos' : 'O filme ' + this.state.item.title +' foi removido da sua lista de favoritos');
         })
         .catch(error => {
             this.setState({
@@ -103,7 +107,42 @@ class Movies extends Component {
         return genres.slice(0, -1);
     } 
 
+    notificationGo = (title, message) => store.addNotification({
+        title: title,
+        message: message,
+        type: "success",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        width:400,
+        dismiss: {
+          duration: 5000,
+          onScreen: true
+        }
+    });
+
     render() {
+        /*const notificationGo = () => store.addNotification({
+            title: "Wonderful!",
+            message: "teodosii@react-notifications-component",
+            type: "success",
+            insert: "top",
+            container: "top-left",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 5000,
+              onScreen: true
+            }
+        });
+
+        return (
+            <div className="app-container">
+              <ReactNotification />
+              <button onClick={ notificationGo}> ola </button>
+            </div>
+        )*/
         const { error, isLoaded, item, favorite } = this.state;
         if (error) {
             return <div>Error: {error.message}</div>;
@@ -111,33 +150,36 @@ class Movies extends Component {
             return <Loading/>
         } else {
             return (
-                <div className="container">
-                    {
-                        <div className="row" style={{padding:"20px"}}>
-                            <div className="col-md-4">
-                                <img width="100%" src={ "https://image.tmdb.org/t/p/original/" + item.poster_path } alt="" />
-                            </div>
-                            <div className="col-md-8">
-                                <h1>{ item.title}</h1>
-                                <p>{ item.release_date }</p>
-                                <div class="genres">
-                                    <p>{this.getGenres()}</p>
+                <div>
+                    <ReactNotification />
+                    <div className="container">
+                        {
+                            <div className="row" style={{padding:"65px"}}>
+                                <div className="col-md-4">
+                                    <img width="100%" src={ "https://image.tmdb.org/t/p/original/" + item.poster_path } alt="" />
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <p>{this.getStars()}</p>
-                                        <button value={this.state.item.id} className={ this.GetButtonClass()} onClick={ this.swapFavoriteState }>{ this.GetButtonText() }</button>
+                                <div className="col-md-8">
+                                    <h1>{ item.title}</h1>
+                                    <p>{ item.release_date }</p>
+                                    <div class="genres">
+                                        <p>{this.getGenres()}</p>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <p>{this.getStars()}</p>
+                                            <button value={this.state.item.id} className={ this.GetButtonClass()} onClick={ () => {this.swapFavoriteState()}}> { this.GetButtonText() }</button>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-12">
+                                            <h3>Overview</h3>
+                                            <p>{ item.overview }</p>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="row mt-3">
-                                    <div class="col-md-12">
-                                        <h3>Overview</h3>
-                                        <p>{ item.overview }</p>
-                                    </div>
-                                </div>
                             </div>
-                        </div>
-                    }
+                        }
+                    </div>
                 </div>
             );
         }

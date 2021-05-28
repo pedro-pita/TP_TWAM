@@ -159,7 +159,7 @@ class Movies extends Component {
                 <div className="container">
                     <div className="row mt-5">
                         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 box-items">
-                            <h1>Filters</h1>
+                            <h2>Filters</h2>
                             <Filters onSubmitFilters={this.handleSubmitFilters}/>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-9 box-items">

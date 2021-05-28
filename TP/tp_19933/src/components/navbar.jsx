@@ -22,7 +22,6 @@ class Nav extends Component {
     }
   
     componentDidMount(){
-        console.log("asdasdasdasd")
         window.addEventListener('resize', (e) => this.changeLogo(e));
     }
 
@@ -48,7 +47,7 @@ class Nav extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="col-12 col-lg-4 col-xl-3  align-self-center" align="left">
+                    <div className="col-12 col-lg-12 col-xl-12 secondary-background-color align-self-center" align="left">
                         <div className="collapse navbar-collapse" id="navbarSupportedContent" >
                             <ul className="navbar-nav mr-auto">
                                 <li className="nav-item col-sm-12 col-md-12 col-lg-6">
