@@ -164,7 +164,7 @@ class Movies extends Component {
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 box-items ">
                             <h2 className="mt-3">{ this.getTitle() }</h2>
-                            <div className="row text-center align-middle">
+                            <div className="row" >
                                 {
                                     (items.length > 0) 
                                     ? 
@@ -180,7 +180,7 @@ class Movies extends Component {
                                             </div>
                                         ))
                                     :
-                                        <div className="text-center align-middle" style={{height: "100px"}}>
+                                        <div className="text-center align-middle" >
                                             <h2> Movies not found </h2>
                                         </div>
                                 }
