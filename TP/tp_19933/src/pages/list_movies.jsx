@@ -23,52 +23,41 @@ class Movies extends Component {
         this.handleSubmitFilters = this.handleSubmitFilters.bind(this)
     }
 
-    componentDidMount(page=this.state.page, conditions="") {
-        if(this.state.typeList === "favorites" && this.state.isLoaded){
-            var start = (page-1) * itemsPerPage;
-            var end = start + itemsPerPage;
-            this.setState({
-                currentItems: [start,end],
-                isLoaded: true
-            });
-        }else{
-            fetch(this.getLinkToRequest(page, conditions))
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    this.setState({
-                        isLoaded: true,
-                        items: this.state.typeList !== "favorites" ? result.results : result.items
-                    });
-                    this.setState({
-                        totalPages: this.state.typeList !== "favorites" ? result.total_pages : this.calculateTotalPageNumber((this.state.items.length / 20))
-                    })
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
-        }
+    componentDidMount(page=this.state.page, conditions="&vote_average.desc") {
+        fetch(this.getLinkToRequest(page, conditions))
+        .then(res => res.json())
+        .then(
+            (result) => {
+                this.setState({
+                    isLoaded: true,
+                    items: result.results
+                });
+                console.log( this.state.items.length)
+                console.log(result.total_results)
+                this.setState({
+                    totalPages: (this.state.items.length >= 20) ? result.total_pages : 1 
+                })
+            },
+            (error) => {
+                this.setState({
+                    isLoaded: true,
+                    error
+                });
+            }
+        )
     }
 
-    getLinkToRequest = ( page = this.state.page, conditions="") => {
-        console.log("https://api.themoviedb.org/3/discover/movie?api_key=85b7f5dbd764003e3e05f18df89ff387&language=en-US&page=" + page + conditions)
+    getLinkToRequest = ( page = this.state.page, conditions="&sort_by=vote_average.desc") => {
+        console.log("https://api.themoviedb.org/4/list/7080650?api_key=85b7f5dbd764003e3e05f18df89ff387&page=" + page + conditions)
         switch(this.state.typeList){
             case "list":
                 return "https://api.themoviedb.org/3/discover/movie?api_key=85b7f5dbd764003e3e05f18df89ff387&language=en-US&page=" + page + conditions;
             case "favorites":
-                return "https://api.themoviedb.org/3/list/7080650?api_key=85b7f5dbd764003e3e05f18df89ff387";
-            case "filters":
-                return "https://api.themoviedb.org/3/discover/movie?api_key=85b7f5dbd764003e3e05f18df89ff387&language=en-US"
+                return "https://api.themoviedb.org/4/list/7080650?api_key=85b7f5dbd764003e3e05f18df89ff387&page=" + page + conditions;
             default:
                 return "https://api.themoviedb.org/3/search/movie?api_key=85b7f5dbd764003e3e05f18df89ff387&page=" + page + "&query=" + this.state.typeList;
         }
-    } 
-    
-    calculateTotalPageNumber = (pages) => (Math.floor(pages) + Math.ceil(pages % 1));
+    }
 
     changePage = (page) => {
         this.setState({
@@ -160,7 +149,7 @@ class Movies extends Component {
                     <div className="row mt-5">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 box-items">
                             <h2 className="mt-3 mb-3">Filters</h2>
-                            <Filters onSubmitFilters={this.handleSubmitFilters}/>
+                            <Filters onSubmitFilters={this.handleSubmitFilters} typeList={this.state.typeList}/>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 box-items ">
                             <h2 className="mt-3">{ this.getTitle() }</h2>

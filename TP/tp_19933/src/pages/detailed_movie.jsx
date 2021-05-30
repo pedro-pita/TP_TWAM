@@ -3,6 +3,7 @@ import Loading from '../components/loading';
 import ReactNotification from 'react-notifications-component'
 import { store } from "react-notifications-component"
 import 'react-notifications-component/dist/theme.css'
+import axios from 'axios';
 
 class Movies extends Component {
     constructor(props) {

@@ -9,7 +9,8 @@ class Filters extends Component {
         this.state = {
             value: '',
             dates: undefined,
-            genres: undefined
+            genres: undefined,
+            sortBy: "vote_average.desc"
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleGenres = this.handleGenres.bind(this)
@@ -31,10 +32,10 @@ class Filters extends Component {
     handleSort (sortBy) {
         switch(sortBy){
             case "1":
-                sortBy = "vote_average.asc"
+                sortBy = "vote_average.desc"
                 break;
             case "2":
-                sortBy = "vote_average.desc"
+                sortBy = "vote_average.asc"
                 break;
             case "3":
                 sortBy = "release_date.asc"
@@ -88,10 +89,19 @@ class Filters extends Component {
                 </div>
                 <center>
                     <div className="row mt-2">
-                        <p className="col-12 text-center">Date:</p>
-                        <div className="col-12">
-                            <DatePicker onChangeDatePicker={this.handleDatePicker}/>
-                        </div>
+                        {
+                            (this.props.typeList != "favorites") 
+                            ? 
+                                <div>
+                                    <p className="col-12 text-center">Date:</p>
+                                    <div className="col-12">
+                                        <DatePicker onChangeDatePicker={this.handleDatePicker}/>
+                                    </div>
+                                </div>
+                            : 
+                                ""
+                        }
+
                         <div class="form-group mt-3" align="center">
                             <input onClick={this.handleSubmit} className="btn btn-light secondary-background-color" name="submit" type="submit" value="Submit" style={this.buttonStyle()}/>
                         </div>
