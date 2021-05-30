@@ -17,43 +17,22 @@ class Movies extends Component {
     }
 
     componentDidMount() {
-        fetch("https://api.themoviedb.org/3/movie/" + this.props.match.params.value +"?api_key=85b7f5dbd764003e3e05f18df89ff387&language=en-US")
-          .then(res => res.json())
-          .then(
-            (result) => {
-                this.setState({
-                    item: result
-                });
-                console.log(result);
-                this.loadFavorites()
-            },
-            (error) => {
-                this.setState({
-                    isLoaded: true,
-                    error
-                });
-            }
-        )
-    }
-
-    loadFavorites = () => {
-        fetch("https://api.themoviedb.org/3/list/7080650/item_status?api_key=85b7f5dbd764003e3e05f18df89ff387&movie_id=" + this.state.item.id)
-        .then(res => res.json())
-        .then(
-            (result) => {
-                console.log(result);
-                this.setState({
-                    isLoaded: true,
-                    favorite: result.item_present
-                });
-            },
-            (error) => {
-                this.setState({
-                    isLoaded: true,
-                    error
-                });
-            }
-        )
+        const requestMovie = axios.get("https://api.themoviedb.org/3/movie/" + this.props.match.params.value +"?api_key=85b7f5dbd764003e3e05f18df89ff387&language=en-US");
+        const requesFavoriteStatus = axios.get("https://api.themoviedb.org/3/list/7080650/item_status?api_key=85b7f5dbd764003e3e05f18df89ff387&movie_id=" + this.props.match.params.value);
+        axios.all([requestMovie, requesFavoriteStatus]).then(axios.spread((...result) => {
+            console.log(result)
+            console.log( result[1].data)
+            this.setState({
+                isLoaded: true,
+                item: result[0].data,
+                favorite: result[1].data.item_present
+            });
+          })).catch(error => {
+            this.setState({
+                isLoaded: true,
+                error
+            });
+          })
     }
 
     GetButtonClass = () => {
@@ -133,13 +112,13 @@ class Movies extends Component {
             return (
                 <div>
                     <ReactNotification />
-                    <div className="container">
+                    <div className="container d-flex align-items-center justify-content-center">
                         {
                             <div className="row" style={{padding:"65px"}}>
-                                <div className="col-md-4">
+                                <div className="col-md-5">
                                     <img width="100%" src={ "https://image.tmdb.org/t/p/original/" + item.poster_path } alt="" />
                                 </div>
-                                <div className="col-md-8">
+                                <div className="col-md-7">
                                     <h1>{ item.title}</h1>
                                     <p>{ item.release_date }</p>
                                     <div class="genres">

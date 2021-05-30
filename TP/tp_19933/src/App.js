@@ -23,7 +23,7 @@ class App extends Component {
                         <Route exact path="/movies/:value" component={ Movies } />
                         <Route exact path="/movies/search/:value" component={ Movies } />
                         <Route exact path="/detailed/:value" component={ Detailed } />
-                        <Route path="*" render= {() => <h1>404</h1>} />
+                        <Route path="*" render= {() => <div className="container d-flex align-items-center justify-content-center"><img src="http://localhost:3000/404.png" width="70%"></img></div>} />
                     </Switch>
                 </Router>
                 <Footer />
