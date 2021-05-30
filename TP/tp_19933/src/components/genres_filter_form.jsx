@@ -96,14 +96,16 @@ class Filters extends Component {
     render(){
         return (
             <>
-                {this.state.genres.map(item => (
-                    <div className="col-6">
+                {
+                this.state.genres.map(item => (
+                    <div className="col-6 col-xs-4 col-sm-4 col-md-4 col-lg-6 col-xl-6">
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value={item.id} onChange={this.handleChange}/>
                             <label class="form-check-label" for="inlineCheckbox1">{item.name}</label>
                         </div>
                     </div>
-                ))}
+                ))
+                }
             </>
         )
     }

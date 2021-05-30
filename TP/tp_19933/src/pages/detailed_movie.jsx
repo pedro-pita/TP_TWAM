@@ -123,26 +123,6 @@ class Movies extends Component {
     });
 
     render() {
-        /*const notificationGo = () => store.addNotification({
-            title: "Wonderful!",
-            message: "teodosii@react-notifications-component",
-            type: "success",
-            insert: "top",
-            container: "top-left",
-            animationIn: ["animate__animated", "animate__fadeIn"],
-            animationOut: ["animate__animated", "animate__fadeOut"],
-            dismiss: {
-              duration: 5000,
-              onScreen: true
-            }
-        });
-
-        return (
-            <div className="app-container">
-              <ReactNotification />
-              <button onClick={ notificationGo}> ola </button>
-            </div>
-        )*/
         const { error, isLoaded, item, favorite } = this.state;
         if (error) {
             return <div>Error: {error.message}</div>;

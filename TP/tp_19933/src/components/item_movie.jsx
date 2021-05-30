@@ -6,7 +6,7 @@ class Item_Movie extends Component {
         minWidth: "190px",
         minHeight: "290px",
         backgroundSize: "100% 100%",
-        backgroundImage: `url(` + this.props.imageURL + `)`
+        backgroundImage: `url(` + this.props.imageURL + `)` + `,url(` + "https://dummyimage.com/190x290/c2c2c2/fafafa&text=Image" + `)`
     });
     
     render(){

@@ -74,7 +74,7 @@ class Movies extends Component {
         this.setState({
             page:page
         })
-        this.componentDidMount(page);
+        this.componentDidMount(page, this.state.conditions);
     }
     
     getTitle = () => {
@@ -158,33 +158,46 @@ class Movies extends Component {
             return (
                 <div className="container">
                     <div className="row mt-5">
-                        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 box-items">
-                            <h2>Filters</h2>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 box-items">
+                            <h2 className="mt-3 mb-3">Filters</h2>
                             <Filters onSubmitFilters={this.handleSubmitFilters}/>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-9 box-items">
-                            <h2>{ this.getTitle() }</h2>
-                            <div className="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 box-items ">
+                            <h2 className="mt-3">{ this.getTitle() }</h2>
+                            <div className="row text-center align-middle">
                                 {
-                                items.slice(this.state.currentItems[0], this.state.currentItems[1]).map(item => (
-                                    <div class="itens col-xs-11 col-sm-6 col-md-6 col-lg-4 col-xl-3 mt-4">
-                                        <Item_Movie 
-                                            key      = { item.id } 
-                                            id      =  { item.id } 
-                                            title    = { item.title} 
-                                            imageURL = {"https://image.tmdb.org/t/p/original/" + item.poster_path }
-                                            onDelete = {this.handleDelete }>
-                                        </Item_Movie>
+                                    (items.length > 0) 
+                                    ? 
+                                        items.slice(this.state.currentItems[0], this.state.currentItems[1]).map(item => (
+                                            <div class="itens col-xs-11 col-sm-6 col-md-6 col-lg-4 col-xl-3 mt-4">
+                                                <Item_Movie 
+                                                    key      = { item.id } 
+                                                    id      =  { item.id } 
+                                                    title    = { item.title} 
+                                                    imageURL = {"https://image.tmdb.org/t/p/original/" + item.poster_path }
+                                                    onDelete = {this.handleDelete }>
+                                                </Item_Movie>
+                                            </div>
+                                        ))
+                                    :
+                                        <div className="text-center align-middle" style={{height: "100px"}}>
+                                            <h2> Movies not found </h2>
+                                        </div>
+                                }
+                            </div>
+                            {
+                                (items.length > 0) 
+                                ? 
+                                    <div className="row justify-content-center mt-3">
+                                        <div className="col-12 d-flex justify-content-center">
+                                            <ul class="pagination">
+                                                { this.getPagination() }
+                                            </ul>
+                                        </div>
                                     </div>
-                                ))}
-                            </div>
-                            <div className="row" align="center">
-                                <div className="col align-self-center">
-                                        <ul class="pagination">
-                                            { this.getPagination() }
-                                        </ul>
-                                </div>
-                            </div>
+                                :
+                                    <div/>
+                            }
                         </div>
                     </div>
                 </div>

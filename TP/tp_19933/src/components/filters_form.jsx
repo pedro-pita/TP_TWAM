@@ -43,10 +43,10 @@ class Filters extends Component {
                 sortBy = "release_date.desc"
                 break;
             case "5":
-                sortBy = "original_title.asc"
+                sortBy = "title.asc"
                 break;
             case "6":
-                sortBy = "original_title.desc"
+                sortBy = "title.desc"
                 break;
             default:
                 sortBy = "release_date.desc"
@@ -78,23 +78,25 @@ class Filters extends Component {
     render(){
         return (
             <>
-                <div className="row mt-2">
-                    <p className="col-12 text-center">Sort Results By:</p>
+                <div className="row d-flex justify-content-center mt-2">
+                    <p className="col-12 d-flex justify-content-center">Sort Results By:</p>
                     <Sort onChangeSort={this.handleSort} />
                 </div>
                 <div className="row mt-2">
                     <p className="col-12 text-center">Genres:</p>
                     <Genres onChangeGenre={this.handleGenres} />
                 </div>
-                <div className="row mt-2">
-                    <p className="col-12 text-center">Date:</p>
-                    <div className="col-12" align="center">
-                        <DatePicker onChangeDatePicker={this.handleDatePicker}/>
-                    </div>
-                    <div class="form-group mt-3" align="center">
-                        <input onClick={this.handleSubmit} className="btn btn-light secondary-background-color" name="submit" type="submit" value="Submit" style={this.buttonStyle()}/>
-                    </div>
-                </div> 
+                <center>
+                    <div className="row mt-2">
+                        <p className="col-12 text-center">Date:</p>
+                        <div className="col-12">
+                            <DatePicker onChangeDatePicker={this.handleDatePicker}/>
+                        </div>
+                        <div class="form-group mt-3" align="center">
+                            <input onClick={this.handleSubmit} className="btn btn-light secondary-background-color" name="submit" type="submit" value="Submit" style={this.buttonStyle()}/>
+                        </div>
+                    </div> 
+                </center>
             </>
         )
     }
