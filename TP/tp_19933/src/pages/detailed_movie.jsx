@@ -114,7 +114,7 @@ class Movies extends Component {
                     <ReactNotification />
                     <div className="container d-flex align-items-center justify-content-center">
                         {
-                            <div className="row" style={{padding:"65px"}}>
+                            <div className="row" >
                                 <div className="col-md-5">
                                     <img width="100%" src={ "https://image.tmdb.org/t/p/original/" + item.poster_path } alt="" />
                                 </div>
