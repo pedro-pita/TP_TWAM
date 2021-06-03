@@ -19,7 +19,6 @@ class Movies extends Component {
             currentItems: [0, itemsPerPage],
             conditions: ""
         };
-
         this.handleSubmitFilters = this.handleSubmitFilters.bind(this)
     }
 
@@ -48,7 +47,7 @@ class Movies extends Component {
     }
 
     getLinkToRequest = ( page = this.state.page, conditions="&sort_by=vote_average.desc") => {
-        console.log("https://api.themoviedb.org/4/list/7080650?api_key=85b7f5dbd764003e3e05f18df89ff387&page=" + page + conditions)
+        console.log("https://api.themoviedb.org/3/search/movie?api_key=85b7f5dbd764003e3e05f18df89ff387&page=" + page + "&query=" + this.state.typeList + conditions)
         switch(this.state.typeList){
             case "list":
                 return "https://api.themoviedb.org/3/discover/movie?api_key=85b7f5dbd764003e3e05f18df89ff387&language=en-US&page=" + page + conditions;
@@ -147,18 +146,22 @@ class Movies extends Component {
             return (
                 <div className="container">
                     <div className="row mt-5">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 box-items">
-                            <h2 className="mt-3 mb-3">Filters</h2>
-                            <Filters onSubmitFilters={this.handleSubmitFilters} typeList={this.state.typeList}/>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 box-items ">
+                        {(typeList == "list" || typeList == "favorites") ?
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 box-items">
+                                <h2 className="mt-3 mb-3">Filters</h2>
+                                <Filters onSubmitFilters={this.handleSubmitFilters} typeList={this.state.typeList}/>
+                            </div>
+                            :
+                            ""
+                        }
+                        <div class={(typeList == "list" || typeList == "favorites") ? "col-xs-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 box-items" : "col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 box-items" } >
                             <h2 className="mt-3">{ this.getTitle() }</h2>
-                            <div className="row" >
+                            <div className="row d-flex justify-content-center" >
                                 {
                                     (items.length > 0) 
                                     ? 
                                         items.slice(this.state.currentItems[0], this.state.currentItems[1]).map(item => (
-                                            <div class="itens col-10 col-xs-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mt-4">
+                                            <div class={(typeList == "list" || typeList == "favorites") ? "itens col-9 col-xs-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mt-4" : "itens col-9 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-3 mt-4 " }>
                                                 <Item_Movie 
                                                     key      = { item.id } 
                                                     id      =  { item.id } 

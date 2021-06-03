@@ -9,19 +9,18 @@ class Home extends Component {
             error: null,
             isLoaded: false,
             items: [],
-            background: "https://image.tmdb.org/t/p/original"
+            imageURL: "https://image.tmdb.org/t/p/original"
         };
     }
 
     componentDidMount() {
-        fetch("https://api.themoviedb.org/3/movie/775996/recommendations?api_key=85b7f5dbd764003e3e05f18df89ff387&language=en-US&page=1")
+        fetch("https://api.themoviedb.org/3/movie/top_rated?api_key=85b7f5dbd764003e3e05f18df89ff387&language=en-US&page=1")
           .then(res => res.json())
           .then(
             (result) => {
                 this.setState({
                     isLoaded: true,
-                    items: result.results,
-                    background: this.state.background + result.results[0].backdrop_path
+                    items: result.results
                 });
             },
             (error) => {
@@ -32,22 +31,6 @@ class Home extends Component {
             }
         )
     }
-    
-    handleDelete = (id) => {
-        const newCounters = this.state.counters.filter(c => c.id !== id);
-        this.setState({ counters: newCounters });
-    }
-
-    getBackgroundImageStyle = () => ({
-        backgroundSize: "cover",
-        height: "550px",
-        width: "100%",
-        display: "inline-block",
-        backgroundImage: `url(` + this.state.background + `)`,
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        position: "relative"
-    });
 
     render() {
         const { error, isLoaded, items } = this.state;
@@ -60,25 +43,56 @@ class Home extends Component {
         } else {
             return (
                 <div className="container mt-4">
-                    <a href={ "/detailed/" + this.state.items[0].id}>
-                        <div className="row ml-1" style={ this.getBackgroundImageStyle() }>
-                            <div class="title-home">
-                                <h1><span className="badge badge-warning">{this.state.items[0].title}</span></h1>
+                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="carousel-item active" >
+                                    <a href={ "/detailed/" + items[1].id}>
+                                        <div class="carousel-caption d-none d-md-block">
+                                            <h2>{items[1].title}</h2>
+                                            <p>{items[1].overview}</p>
+                                        </div>
+                                        <img class="d-block w-100" src={this.state.imageURL + items[1].backdrop_path} alt="First slide"/>
+                                    </a>
+                                </div>
+                                {
+                                    items.slice(2,4).map(item => (
+                                        <div class="carousel-item" >
+                                            <a href={ "/detailed/" + item.id}>
+                                                <div class="carousel-caption d-none d-md-block">
+                                                    <h2>{item.title}</h2>
+                                                    <p>{item.overview}</p>
+                                                </div>
+                                                <img class="d-block w-100" src={this.state.imageURL + item.backdrop_path} alt="First slide"/>
+                                            </a>
+                                        </div>
+                                    ))
+                                }
                             </div>
+                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
                         </div>
-                    </a>
                     <div className="mt-3">
-                        <h3>RECOMENDADOS</h3>
+                        <h3>TOP RATED</h3>
                         <div class="row mt-3">
                             {
                                 items.slice(1,5).map(item => (
                                     <div class="col-sm-6 col-md-6 col-lg-3">
                                         <Item_Movie 
                                             key      = { item.id } 
-                                            id      = { item.id } 
+                                            id       = { item.id } 
                                             title    = { item.title} 
-                                            imageURL = {"https://image.tmdb.org/t/p/original/" + item.poster_path }
-                                            onDelete = {this.handleDelete }>
+                                            imageURL = {"https://image.tmdb.org/t/p/original/" + item.poster_path} >
                                         </Item_Movie>
                                     </div>
                                 ))
