@@ -5,6 +5,7 @@ import Movies from './pages/list_movies';
 import Home from './pages/home';
 import Footer from './components/footer';
 import Detailed from './pages/detailed_movie';
+import './assets/css/style.css';
 
 class App extends Component {
     constructor(props) {

@@ -158,7 +158,7 @@ class Movies extends Component {
                                     (items.length > 0) 
                                     ? 
                                         items.slice(this.state.currentItems[0], this.state.currentItems[1]).map(item => (
-                                            <div class="itens col-xs-11 col-sm-6 col-md-6 col-lg-4 col-xl-3 mt-4">
+                                            <div class="itens col-10 col-xs-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mt-4">
                                                 <Item_Movie 
                                                     key      = { item.id } 
                                                     id      =  { item.id } 
