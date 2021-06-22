@@ -83,32 +83,32 @@ class Movies extends Component {
 
         if(page > 1 ){
             ulPagination.push(
-                <li class="page-item enable">
-                    <a class="page-link" onClick={() => this.changePage(page-1)}>Previous</a>
+                <li className="page-item enable">
+                    <a className="page-link" onClick={() => this.changePage(page-1)}>Previous</a>
                 </li>
             );
             ulPagination.push(
-                <li class="page-item enable">
-                    <a class="page-link"  onClick={() => this.changePage(page-1)}>{page-1}</a>
+                <li className="page-item enable">
+                    <a className="page-link"  onClick={() => this.changePage(page-1)}>{page-1}</a>
                 </li>
             );
         }
         
         ulPagination.push(
-            <li class="page-item active">
-                <a class="page-link" onClick={() => this.changePage(page)}>{page}</a>
+            <li className="page-item active">
+                <a className="page-link" onClick={() => this.changePage(page)}>{page}</a>
             </li>
         );
 
         if(page < maxPages){
             ulPagination.push(
-                <li class="page-item enable">
-                    <a class="page-link" onClick={() => this.changePage(page+1)}>{page+1}</a>
+                <li className="page-item enable">
+                    <a className="page-link" onClick={() => this.changePage(page+1)}>{page+1}</a>
                 </li>
             );
             ulPagination.push(
-                <li class="page-item">
-                    <a class="page-link" onClick={() => this.changePage(page+1)}>Next</a>
+                <li className="page-item">
+                    <a className="page-link" onClick={() => this.changePage(page+1)}>Next</a>
                 </li>
             );
         }
@@ -147,21 +147,21 @@ class Movies extends Component {
                 <div className="container">
                     <div className="row mt-5">
                         {(typeList == "list" || typeList == "favorites") ?
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 box-items">
+                            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 box-items">
                                 <h2 className="mt-3 mb-3">Filters</h2>
                                 <Filters onSubmitFilters={this.handleSubmitFilters} typeList={this.state.typeList}/>
                             </div>
                             :
                             ""
                         }
-                        <div class={(typeList == "list" || typeList == "favorites") ? "col-xs-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 box-items" : "col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 box-items" } >
+                        <div className={(typeList == "list" || typeList == "favorites") ? "col-xs-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 box-items" : "col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 box-items" } >
                             <h2 className="mt-3">{ this.getTitle() }</h2>
                             <div className="row d-flex justify-content-center" >
                                 {
                                     (items.length > 0) 
                                     ? 
                                         items.slice(this.state.currentItems[0], this.state.currentItems[1]).map(item => (
-                                            <div class={(typeList == "list" || typeList == "favorites") ? "itens col-9 col-xs-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mt-4" : "itens col-9 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-3 mt-4 " }>
+                                            <div className={(typeList == "list" || typeList == "favorites") ? "itens col-9 col-xs-6 col-sm-6 col-md-6 col-lg-4 col-xl-4 mt-4" : "itens col-9 col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-3 mt-4 " }>
                                                 <Item_Movie 
                                                     key      = { item.id } 
                                                     id      =  { item.id } 
@@ -182,7 +182,7 @@ class Movies extends Component {
                                 ? 
                                     <div className="row justify-content-center mt-3">
                                         <div className="col-12 d-flex justify-content-center">
-                                            <ul class="pagination">
+                                            <ul className="pagination">
                                                 { this.getPagination() }
                                             </ul>
                                         </div>

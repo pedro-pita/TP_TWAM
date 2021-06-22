@@ -44,50 +44,50 @@ class Home extends Component {
             return (
                 <div className="container mt-4">
                         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                            <ol class="carousel-indicators">
+                            <ol className="carousel-indicators">
                                 <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                                 <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                                 <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                             </ol>
-                            <div class="carousel-inner">
-                                <div class="carousel-item active" >
+                            <div className="carousel-inner">
+                                <div className="carousel-item active" >
                                     <a href={ "/detailed/" + items[1].id}>
-                                        <div class="carousel-caption d-none d-md-block">
+                                        <div className="carousel-caption d-none d-md-block">
                                             <h2>{items[1].title}</h2>
                                             <p>{items[1].overview}</p>
                                         </div>
-                                        <img class="d-block w-100" src={this.state.imageURL + items[1].backdrop_path} alt="First slide"/>
+                                        <img className="d-block w-100" src={this.state.imageURL + items[1].backdrop_path} alt="First slide"/>
                                     </a>
                                 </div>
                                 {
                                     items.slice(2,4).map(item => (
-                                        <div class="carousel-item" >
+                                        <div className="carousel-item" >
                                             <a href={ "/detailed/" + item.id}>
-                                                <div class="carousel-caption d-none d-md-block">
+                                                <div className="carousel-caption d-none d-md-block">
                                                     <h2>{item.title}</h2>
                                                     <p>{item.overview}</p>
                                                 </div>
-                                                <img class="d-block w-100" src={this.state.imageURL + item.backdrop_path} alt="First slide"/>
+                                                <img className="d-block w-100" src={this.state.imageURL + item.backdrop_path} alt="First slide"/>
                                             </a>
                                         </div>
                                     ))
                                 }
                             </div>
-                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
+                            <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span className="sr-only">Previous</span>
                             </a>
-                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
+                            <a className="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span className="sr-only">Next</span>
                             </a>
                         </div>
                     <div className="mt-3">
                         <h3>TOP RATED</h3>
-                        <div class="row mt-3">
+                        <div className="row mt-3">
                             {
                                 items.slice(1,5).map(item => (
-                                    <div class="col-sm-6 col-md-6 col-lg-3">
+                                    <div className="col-sm-6 col-md-6 col-lg-3">
                                         <Item_Movie 
                                             key      = { item.id } 
                                             id       = { item.id } 

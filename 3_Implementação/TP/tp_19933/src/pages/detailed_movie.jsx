@@ -121,17 +121,17 @@ class Movies extends Component {
                                 <div className="col-md-7">
                                     <h1>{ item.title}</h1>
                                     <p>{ item.release_date }</p>
-                                    <div class="genres">
+                                    <div className="genres">
                                         <p>{this.getGenres()}</p>
                                     </div>
-                                    <div class="row">
+                                    <div className="row">
                                         <div class="col-md-12">
                                             <p>{this.getStars()}</p>
                                             <button value={this.state.item.id} className={ this.GetButtonClass()} onClick={ () => {this.swapFavoriteState()}}> { this.GetButtonText() }</button>
                                         </div>
                                     </div>
-                                    <div class="row mt-3">
-                                        <div class="col-md-12">
+                                    <div className="row mt-3">
+                                        <div className="col-md-12">
                                             <h3>Overview</h3>
                                             <p>{ item.overview }</p>
                                         </div>
