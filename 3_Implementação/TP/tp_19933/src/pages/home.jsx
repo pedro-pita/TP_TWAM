@@ -86,7 +86,7 @@ class Home extends Component {
                         <h3>TOP RATED</h3>
                         <div className="row mt-3">
                             {
-                                items.slice(1,5).map(item => (
+                                items.slice(5,9).map(item => (
                                     <div className="col-sm-6 col-md-6 col-lg-3">
                                         <Item_Movie 
                                             key      = { item.id } 
