@@ -56,7 +56,7 @@ class Home extends Component {
                                             <h2>{items[1].title}</h2>
                                             <p>{items[1].overview}</p>
                                         </div>
-                                        <img className="d-block w-100" src={this.state.imageURL + items[1].backdrop_path} alt="First slide"/>
+                                        <img alt={"Capa do filme" + items[1].title} className="d-block w-100" src={this.state.imageURL + items[1].backdrop_path} alt="First slide"/>
                                     </a>
                                 </div>
                                 {
@@ -67,7 +67,7 @@ class Home extends Component {
                                                     <h2>{item.title}</h2>
                                                     <p>{item.overview}</p>
                                                 </div>
-                                                <img className="d-block w-100" src={this.state.imageURL + item.backdrop_path} alt="First slide"/>
+                                                <img alt={"Capa do filme" + item.title} className="d-block w-100" src={this.state.imageURL + item.backdrop_path} alt="First slide"/>
                                             </a>
                                         </div>
                                     ))

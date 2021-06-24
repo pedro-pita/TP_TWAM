@@ -116,7 +116,7 @@ class Movies extends Component {
                         {
                             <div className="row" >
                                 <div className="col-md-5">
-                                    <img width="100%" src={ "https://image.tmdb.org/t/p/original/" + item.poster_path } alt="" />
+                                    <img width="100%" src={ "https://image.tmdb.org/t/p/original/" + item.poster_path } alt={item.overview} />
                                 </div>
                                 <div className="col-md-7">
                                     <h1>{ item.title}</h1>
